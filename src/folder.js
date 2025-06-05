@@ -1,8 +1,8 @@
 export const folder = function (name) {
-    const todos = {};
+    const todos = {}
     const addTodo = function (todo) {
         todos[todo.id] = todo;
-    };
+    }
     const deleteTodo = function (id) {
         delete todos[id];
     }
@@ -12,5 +12,5 @@ export const folder = function (name) {
         todos,
         addTodo,
         deleteTodo,
-    };
-};
+    }
+}

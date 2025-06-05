@@ -1,7 +1,7 @@
 import { folder } from "./folder";
 
 export const folderManager = function () {
-    const folders = {};
+    const folders = {}
     
     const createFolder = function(folderName) {
         const folderID = crypto.randomUUID();

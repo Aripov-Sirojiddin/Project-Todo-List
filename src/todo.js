@@ -3,5 +3,5 @@ export const todo = function (title, description) {
         id: crypto.randomUUID(),
         title,
         description,
-    };
-};
+    }
+}

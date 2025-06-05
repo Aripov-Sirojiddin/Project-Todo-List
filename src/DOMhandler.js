@@ -11,10 +11,12 @@ export const DOMhandler = function () {
                 console.log(todoObject);
                 const renderedTodo = renderTodo(todoID, todoObject);
                 folderContainer.appendChild(renderedTodo);
-            };
+            }
 
             return folderContainer;
-        };
+        }
+
+
         const renderTodo = function (todoID, todo) {
             const todoContainer = document.createElement("div");
             todoContainer.id = todoID;
@@ -38,11 +40,11 @@ export const DOMhandler = function () {
             });
 
             return todoContainer;
-        };
+        }
 
         parentContainer.appendChild(renderTodosInFolder());
-    };
+    }
     return {
         renderFolder
-    };
+    }
 }
