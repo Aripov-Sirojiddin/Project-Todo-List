@@ -11,7 +11,6 @@ import { folderManager } from "./folderManager";
     const houseChoresFolder = myFolderManager.createFolder("House Chores");
 
     houseChoresFolder.addTodo(washDishes);
-    console.log(houseChoresFolder);
     houseChoresFolder.addTodo(fixTheKitchenSink);
 
     const renderer = DOMhandler();

@@ -1,7 +1,7 @@
 export const folder = function (name) {
     const todos = {};
     const addTodo = function (todo) {
-        todos[crypto.randomUUID()] = todo;
+        todos[todo.id] = todo;
     };
     const deleteTodo = function (id) {
         delete todos[id];
