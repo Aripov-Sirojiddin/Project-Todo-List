@@ -1,7 +1,7 @@
 export const DOMhandler = function () {
     const parentContainer = document.querySelector("#folder-content");
 
-    const renderFolder = function (folder) {
+    const renderFolderContent = function (folder) {
         const renderTodosInFolder = function () {
             const folderContainer = document.createElement("div");
             folderContainer.id = folder.id;
@@ -45,6 +45,6 @@ export const DOMhandler = function () {
         parentContainer.appendChild(renderTodosInFolder());
     }
     return {
-        renderFolder
+        renderFolderContent
     }
 }

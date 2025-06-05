@@ -8,11 +8,12 @@ import { folderManager } from "./folderManager";
     const fixTheKitchenSink = todo("Fix kitchen sink", "Wife will kill me if I don't fix it today!");
 
     const myFolderManager = folderManager();
-    const houseChoresFolder = myFolderManager.createFolder("House Chores");
+    const houseChoresFolder = folder("House Chores"); 
+    myFolderManager.addFolder(houseChoresFolder);
 
     houseChoresFolder.addTodo(washDishes);
     houseChoresFolder.addTodo(fixTheKitchenSink);
 
     const renderer = DOMhandler();
-    renderer.renderFolder(houseChoresFolder);
+    renderer.renderFolderContent(houseChoresFolder);
 })();

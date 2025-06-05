@@ -1,5 +1,6 @@
 export const folder = function (name) {
     const todos = {}
+    
     const addTodo = function (todo) {
         todos[todo.id] = todo;
     }
