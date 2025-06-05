@@ -1,11 +1,26 @@
-const DOMhandler = function (parentID) {
-    const parentContainer = document.getElementById(parentID);
-    const renderFolder = function (folder) {
+const DOMhandler = function (parent) {
+    const parentContainer = document.querySelector(parent);
+
+    const renderFolderLink = function(folder) {
 
     }
+
+    const renderFolder = function (folder) {
+        parentContainer.appendChild(
+            renderTodosInFolder(folder)
+        );
+    };
     const renderTodosInFolder = function (folder) {
-        
-    }
+        const folderContainer = document.createElement("div");
+        folderContainer.id = folder.id;
+
+        folder.todos.forEach(todo => {
+            const renderedTodo = renderTodo(todo);
+            folderContainer.appendChild(renderedTodo);
+        });
+
+        return folderContainer;
+    };
     const renderTodo = function (todo) {
         const todoContainer = document.createElement("div");
         todoContainer.id = todo.id;
@@ -22,10 +37,10 @@ const DOMhandler = function (parentID) {
         });
 
         return todoContainer;
-    }
-    return{
-        renderTodo,
-    }
+    };
+    return {
+        renderFolder
+    };
 }
 
 const folder = function (name) {
@@ -61,9 +76,7 @@ const todo = function (title, description) {
     houseChores.addTodo(washDishes);
     houseChores.addTodo(fixTheKitchenSink);
 
+    const renderer = DOMhandler("body");
+    renderer.renderFolder(houseChores);
     console.log(houseChores.todos);
-    const renderer = DOMhandler(document.body);
-    const washDishesRender = renderer.renderTodo(fixTheKitchenSink);
-
-    document.body.appendChild(washDishesRender);
 })();
