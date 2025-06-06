@@ -9,17 +9,16 @@ export const DOMhandler = function () {
             for (let todoID in folder.todos) {
                 const todoObject = folder.todos[todoID];
                 console.log(todoObject);
-                const renderedTodo = renderTodo(todoID, todoObject);
+                const renderedTodo = renderTodo(todoObject);
                 folderContainer.appendChild(renderedTodo);
             }
 
             return folderContainer;
         }
 
-
-        const renderTodo = function (todoID, todo) {
+        const renderTodo = function (todo) {
             const todoContainer = document.createElement("div");
-            todoContainer.id = todoID;
+            todoContainer.id = todo.id;
 
             const title = document.createElement("h1");
             title.textContent = todo.title;
@@ -29,7 +28,7 @@ export const DOMhandler = function () {
 
             const deleteBtn = document.createElement("button");
             deleteBtn.addEventListener("click", () => {
-                folder.deleteTodo(todoID);
+                folder.deleteTodo(todo.id);
                 todoContainer.remove();
             });
             deleteBtn.textContent = `Delete ${todo.title}`;
