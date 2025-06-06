@@ -17,7 +17,27 @@ export const todoDOMhandler = function () {
         };
     }
 
+    const getDescription = function (todo) {
+        const descriptionElement = document.createElement("p");
+        descriptionElement.id = `description-${todo.id}`;
+        descriptionElement.textContent = todo.description;
+
+        const descriptionEditForm = document.createElement("input");
+        descriptionEditForm.value = todo.description === undefined ? "" : todo.description;
+        descriptionEditForm.addEventListener("input", () => {
+            todo.description = descriptionEditForm.value;
+            document.getElementById(`description-${todo.id}`).textContent = descriptionEditForm.value;
+        });
+
+        return {
+            element: descriptionElement,
+            form: descriptionEditForm,
+        };
+    }
+
+
     return {
         getTitle,
+        getDescription,
     }
 }
