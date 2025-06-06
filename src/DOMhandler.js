@@ -33,7 +33,7 @@ export const DOMhandler = function () {
             });
             deleteBtn.textContent = `Delete ${todo.title}`;
 
-            const editDiv = renderEditTodoDialog(todo);
+            const editDiv = renderEditTodoDialog(todo, {title, description});
 
             const todoProperties = [title, description, deleteBtn, editDiv];
             todoProperties.forEach(property => {
@@ -46,7 +46,7 @@ export const DOMhandler = function () {
         parentContainer.appendChild(renderTodosInFolder());
     }
 
-    const renderEditTodoDialog = function (todo) {
+    const renderEditTodoDialog = function (todo, todoElements) {
         const editTodoContainer = document.createElement("div");
         const dialog = document.createElement("dialog");
         dialog.id = todo.id;
@@ -64,12 +64,14 @@ export const DOMhandler = function () {
         updateBtn.textContent = "Update todo?";
         updateBtn.addEventListener("click", ()=>{
             todo.title = titleTextField.value;
+            todoElements.title.textContent = todo.title;
             dialog.close();
         });
-
-        dialog.appendChild(closeBtn);
-        dialog.appendChild(titleTextField);
-        dialog.appendChild(updateBtn);
+        
+        const dialogChildren = [closeBtn, titleTextField, updateBtn];
+        dialogChildren.forEach(child => {
+            dialog.appendChild(child);
+        });
 
         const openBtn = document.createElement("button");
         openBtn.textContent = `Edit ${todo.title}?`;
