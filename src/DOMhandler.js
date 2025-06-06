@@ -33,7 +33,9 @@ export const DOMhandler = function () {
             });
             deleteBtn.textContent = `Delete ${todo.title}`;
 
-            const todoProperties = [title, description, deleteBtn];
+            const editDiv = renderEditTodoDialog(todo);
+
+            const todoProperties = [title, description, deleteBtn, editDiv];
             todoProperties.forEach(property => {
                 todoContainer.appendChild(property);
             });
@@ -42,6 +44,43 @@ export const DOMhandler = function () {
         }
 
         parentContainer.appendChild(renderTodosInFolder());
+    }
+
+    const renderEditTodoDialog = function (todo) {
+        const editTodoContainer = document.createElement("div");
+        const dialog = document.createElement("dialog");
+        dialog.id = todo.id;
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "x";
+        closeBtn.addEventListener("click", () => {
+            dialog.close();
+        });
+
+        const titleTextField = document.createElement("input");
+        titleTextField.value = todo.title
+
+        const updateBtn = document.createElement("button");
+        updateBtn.textContent = "Update todo?";
+        updateBtn.addEventListener("click", ()=>{
+            todo.title = titleTextField.value;
+            dialog.close();
+        });
+
+        dialog.appendChild(closeBtn);
+        dialog.appendChild(titleTextField);
+        dialog.appendChild(updateBtn);
+
+        const openBtn = document.createElement("button");
+        openBtn.textContent = `Edit ${todo.title}?`;
+        openBtn.addEventListener("click", () => {
+            dialog.showModal();
+        });
+
+        editTodoContainer.appendChild(dialog);
+        editTodoContainer.appendChild(openBtn);
+
+        return editTodoContainer;
     }
     return {
         renderFolderContent
