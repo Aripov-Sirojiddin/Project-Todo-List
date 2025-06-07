@@ -12,7 +12,7 @@ export const folderDOMhandler = function (folder) {
         createTodoBtn.addEventListener("click", () => {
             createDialog.showModal();
         });
-        
+
         parentContainer.appendChild(createDialog);
         parentContainer.appendChild(createTodoBtn);
 
@@ -73,6 +73,8 @@ export const folderDOMhandler = function (folder) {
                 titleInput.value,
                 descriptionInput.value
             );
+            titleInput.value = "";
+            descriptionInput.value = "";
             folder.addTodo(myTodo);
             parentContainer.appendChild(getTodoDOM(myTodo));
             dialog.close();
@@ -81,6 +83,8 @@ export const folderDOMhandler = function (folder) {
         const cancelBtn = document.createElement("button");
         cancelBtn.textContent = "Cancel";
         cancelBtn.addEventListener("click", () => {
+            titleInput.value = "";
+            descriptionInput.value = "";
             dialog.close();
         });
 
