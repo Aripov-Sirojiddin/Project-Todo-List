@@ -28,25 +28,18 @@ export const folderDOMhandler = function (folder) {
         const todoContainer = document.createElement("div");
         todoContainer.id = todo.id;
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.addEventListener("click", () => {
-            folder.deleteTodo(todo.id);
-            todoContainer.remove();
-        });
-        deleteBtn.textContent = `Delete ${todo.title}`;
-
-        const dialog = todoDOM.getEditDialog();
+        const editDialog = getEditDialog(todo);
         const editBtn = document.createElement("button");
         editBtn.addEventListener("click", () => {
-            dialog.showModal();
+            editDialog.showModal();
         });
         editBtn.textContent = `Edit ${todo.title}`;
 
         const todoProperties = [
             todoDOM.titleElement,
             todoDOM.descriptionElement,
-            deleteBtn,
-            dialog,
+            getDeleteBtn(todo),
+            editDialog,
             editBtn
         ];
         todoProperties.forEach(property => {
@@ -99,6 +92,57 @@ export const folderDOMhandler = function (folder) {
         });
 
         return dialog;
+    }
+
+    const getEditDialog = function (todo) {
+        const dialog = document.createElement("dialog");
+
+        //Properties' forms
+        const titleInput = document.createElement("input");
+        titleInput.value = todo.title;
+
+        const descriptionInput = document.createElement("input");
+        descriptionInput.value = todo.description === undefined ? "" : todo.description;
+
+        const saveBtn = document.createElement("button");
+        saveBtn.textContent = "Save";
+        saveBtn.addEventListener("click", () => {
+            todo.title = titleInput.value;
+            todo.description = descriptionInput.value;
+
+            folder.editTodo(todo);
+            document.getElementById(`title-${todo.id}`).textContent = todo.title;
+            document.getElementById(`description-${todo.id}`).textContent = todo.description;
+            dialog.close();
+        });
+
+        const cancelBtn = document.createElement("button");
+        cancelBtn.textContent = "Cancel";
+        cancelBtn.addEventListener("click", () => {
+            dialog.close();
+        });
+
+        const dialogChildren = [
+            titleInput,
+            descriptionInput,
+            saveBtn,
+            cancelBtn,
+        ];
+        dialogChildren.forEach(child => {
+            dialog.appendChild(child);
+        });
+
+        return dialog;
+    }
+
+    const getDeleteBtn = function (todo) {
+        const deleteBtn = document.createElement("button");
+        deleteBtn.addEventListener("click", () => {
+            folder.deleteTodo(todo);
+            deleteBtn.parentElement.remove();
+        });
+        deleteBtn.textContent = `Delete ${todo.title}`;
+        return deleteBtn;
     }
 
     return {

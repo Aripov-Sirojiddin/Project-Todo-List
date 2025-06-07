@@ -1,10 +1,11 @@
 import { folder } from "./folder";
 import { folderDOMhandler } from "./folderDOMhandler";
+import { FoldersSave } from "./FoldersSave";
 
 export const mainDOMhandler = function () {
     const parentContainer = document.getElementById("folders-list");
 
-    const folders = {};
+    const folders = FoldersSave.folders;
 
     const getFolderLink = function (folder) {
         const folderLinkContainer = document.createElement("div");
@@ -15,8 +16,7 @@ export const mainDOMhandler = function () {
         folderLinkContainer.appendChild(heading);
 
         folderLinkContainer.addEventListener("click", () => {
-            const folderDOM = folderDOMhandler(folder);
-            folderDOM.renderFolderContent();
+            folderDOMhandler(folder).renderFolderContent();
         });
         return folderLinkContainer;
     }
@@ -33,8 +33,8 @@ export const mainDOMhandler = function () {
         createBtn.addEventListener("click", () => {
             const myNewFolder = folder(nameInput.value);
             nameInput.value = "";
-            folders[myNewFolder.id] = myNewFolder;
-            folderDOMhandler(myNewFolder).renderFolderContent();
+            FoldersSave.addFolder(myNewFolder);
+            folderDOMhandler(FoldersSave.folders[myNewFolder.id]).renderFolderContent();
             parentContainer.appendChild(getFolderLink(myNewFolder));
             dialog.close();
         });
@@ -57,18 +57,24 @@ export const mainDOMhandler = function () {
         return dialog;
     }
 
-    const createDialog = getCreateFolderDialog();
-    const createFolderBtn = document.createElement("button");
-    createFolderBtn.textContent = "Create folder!";
-    createFolderBtn.addEventListener("click", () => {
-        createDialog.showModal();
-    });
+    const renderMain = () => {
+        const createDialog = getCreateFolderDialog();
+        const createFolderBtn = document.createElement("button");
+        createFolderBtn.textContent = "Create folder!";
+        createFolderBtn.addEventListener("click", () => {
+            createDialog.showModal();
+        });
 
-    parentContainer.appendChild(createDialog);
-    parentContainer.appendChild(createFolderBtn);
+        parentContainer.appendChild(createDialog);
+        parentContainer.appendChild(createFolderBtn);
+        
+        FoldersSave.load();
+        for(let id in FoldersSave.folders) {
+            parentContainer.appendChild(getFolderLink(FoldersSave.folders[id]));
+        }
+    }
 
-    for (let name in folders) {
-        console.log(name);
-        parentContainer.appendChild(getFolderLink(folders.name));
+    return {
+        renderMain,
     }
 }

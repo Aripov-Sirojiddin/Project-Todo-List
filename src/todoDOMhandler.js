@@ -11,48 +11,7 @@ export const todoDOMhandler = function (todo) {
         descriptionElement.textContent = todo.description;
     })();
 
-    const getEditDialog = function () {
-        const dialog = document.createElement("dialog");
-
-        //Properties' forms
-        const titleInput = document.createElement("input");
-        titleInput.value = todo.title;
-
-        const descriptionInput = document.createElement("input");
-        descriptionInput.value = todo.description === undefined ? "" : todo.description;
-
-        const saveBtn = document.createElement("button");
-        saveBtn.textContent = "Save";
-        saveBtn.addEventListener("click", () => {
-            todo.title = titleInput.value;
-            todo.description = descriptionInput.value;
-            
-            titleElement.textContent = todo.title;
-            descriptionElement.textContent = todo.description;
-
-            dialog.close();
-        });
-
-        const cancelBtn = document.createElement("button");
-        cancelBtn.textContent = "Cancel";
-        cancelBtn.addEventListener("click", () => {
-            dialog.close();
-        });
-
-        const dialogChildren = [
-            titleInput,
-            descriptionInput,
-            saveBtn,
-            cancelBtn,
-        ];
-        dialogChildren.forEach(child => {
-            dialog.appendChild(child);
-        });
-
-        return dialog;
-    }
     return {
-        getEditDialog,
         titleElement,
         descriptionElement,
     }
