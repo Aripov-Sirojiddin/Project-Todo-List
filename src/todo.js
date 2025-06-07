@@ -5,3 +5,4 @@ export const todo = function (title, description) {
         description,
     }
 }
+export default todo;

@@ -18,6 +18,6 @@ import { folderManager } from "./folderManager";
     houseChoresFolder.addTodo(play);
     houseChoresFolder.addTodo(doTaxes);
 
-    const renderer = folderDOMhandler();
-    renderer.renderFolderContent(houseChoresFolder);
+    const renderer = folderDOMhandler(houseChoresFolder);
+    renderer.renderFolderContent();
 })();

@@ -11,7 +11,7 @@ export const todoDOMhandler = function (todo) {
         descriptionElement.textContent = todo.description;
     })();
 
-    const renderEditDialog = function () {
+    const getEditDialog = function () {
         const dialog = document.createElement("dialog");
 
         //Properties' forms
@@ -52,7 +52,7 @@ export const todoDOMhandler = function (todo) {
         return dialog;
     }
     return {
-        renderEditDialog,
+        getEditDialog,
         titleElement,
         descriptionElement,
     }
