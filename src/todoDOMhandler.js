@@ -1,43 +1,59 @@
-export const todoDOMhandler = function () {
-    const getTitle = function (todo) {
-        const titleElement = document.createElement("h1");
+export const todoDOMhandler = function (todo) {
+    const titleElement = document.createElement("h1");
+    (()=> {
         titleElement.id = `title-${todo.id}`;
         titleElement.textContent = todo.title;
+    })();
 
-        const titleEditForm = document.createElement("input");
-        titleEditForm.value = todo.title;
-        titleEditForm.addEventListener("input", () => {
-            todo.title = titleEditForm.value;
-            document.getElementById(`title-${todo.id}`).textContent = titleEditForm.value;
-        });
-
-        return {
-            element: titleElement,
-            form: titleEditForm,
-        };
-    }
-
-    const getDescription = function (todo) {
-        const descriptionElement = document.createElement("p");
+    const descriptionElement = document.createElement("p");
+    (()=> {
         descriptionElement.id = `description-${todo.id}`;
         descriptionElement.textContent = todo.description;
+    })();
 
-        const descriptionEditForm = document.createElement("input");
-        descriptionEditForm.value = todo.description === undefined ? "" : todo.description;
-        descriptionEditForm.addEventListener("input", () => {
-            todo.description = descriptionEditForm.value;
-            document.getElementById(`description-${todo.id}`).textContent = descriptionEditForm.value;
+    const renderEditDialog = function () {
+        const dialog = document.createElement("dialog");
+
+        //Properties' forms
+        const titleInput = document.createElement("input");
+        titleInput.value = todo.title;
+
+        const descriptionInput = document.createElement("input");
+        descriptionInput.value = todo.description === undefined ? "" : todo.description;
+
+        const saveBtn = document.createElement("button");
+        saveBtn.textContent = "Save";
+        saveBtn.addEventListener("click", () => {
+            todo.title = titleInput.value;
+            todo.description = descriptionInput.value;
+            
+            titleElement.textContent = todo.title;
+            descriptionElement.textContent = todo.description;
+
+            dialog.close();
         });
 
-        return {
-            element: descriptionElement,
-            form: descriptionEditForm,
-        };
+        const cancelBtn = document.createElement("button");
+        cancelBtn.textContent = "Cancel";
+        cancelBtn.addEventListener("click", () => {
+            dialog.close();
+        });
+
+        const dialogChildren = [
+            titleInput,
+            descriptionInput,
+            saveBtn,
+            cancelBtn,
+        ];
+        dialogChildren.forEach(child => {
+            dialog.appendChild(child);
+        });
+
+        return dialog;
     }
-
-
     return {
-        getTitle,
-        getDescription,
+        renderEditDialog,
+        titleElement,
+        descriptionElement,
     }
 }
