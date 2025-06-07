@@ -1,6 +1,6 @@
 import { todoDOMhandler } from "./todoDOMhandler";
 
-export const DOMhandler = function () {
+export const folderDOMhandler = function () {
     const parentContainer = document.querySelector("#folder-content");
 
     const renderFolderContent = function (folder) {
