@@ -5,6 +5,7 @@ export const folderDOMhandler = function (folder) {
     const parentContainer = document.querySelector("#folder-content");
 
     const renderFolderContent = function () {
+        parentContainer.innerHTML = "";
         const createDialog = getCreateDialog();
         const createTodoBtn = document.createElement("button");
         createTodoBtn.textContent = "Create todo!";
@@ -73,7 +74,6 @@ export const folderDOMhandler = function (folder) {
                 descriptionInput.value
             );
             folder.addTodo(myTodo);
-            console.log(folder);
             parentContainer.appendChild(getTodoDOM(myTodo));
             dialog.close();
         });
