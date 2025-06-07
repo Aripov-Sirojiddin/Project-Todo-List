@@ -32,6 +32,7 @@ export const mainDOMhandler = function () {
         createBtn.textContent = "Save";
         createBtn.addEventListener("click", () => {
             const myNewFolder = folder(nameInput.value);
+            nameInput.value = "";
             folders[myNewFolder.id] = myNewFolder;
             folderDOMhandler(myNewFolder).renderFolderContent();
             parentContainer.appendChild(getFolderLink(myNewFolder));
